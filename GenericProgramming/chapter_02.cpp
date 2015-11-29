@@ -22,6 +22,97 @@ int Chapter_02::multiply1(int n, int a)
 	return result;
 }
 
+int Chapter_02::multiply2(int n, int a)
+{
+	if (n == 1) return a;
+	
+	return this->mult_acc4(a, n - 1, a);
+}
+
+int Chapter_02::multiply3(int n, int a)
+{
+	while (!this->odd(n))
+	{
+		a = a + a;
+		n = half(n);
+	}
+
+	if (n == 1) return a;
+
+	return this->mult_acc4(a, n - 1, a);
+}
+
+int Chapter_02::multiply4(int n, int a)
+{
+	while (!this->odd(n))
+	{
+		a = a + a;
+		n = half(n);
+	}
+
+	if (n == 1) return a;
+
+	return this->mult_acc4(a, half(n - 1), a + a);
+}
+
+int Chapter_02::mult_acc0(int r, int n, int a)
+{
+	if (n == 1) return r + a;
+
+	if (this->odd(n))
+		return this->mult_acc0(r + a, half(n), a + a);
+	else
+		return this->mult_acc0(r, half(n), a + a);
+}
+
+int Chapter_02::mult_acc1(int r, int n, int a)
+{
+	if (n == 1) return r + a;
+
+	if (this->odd(n)) r = r + a;
+
+	return this->mult_acc0(r, half(n), a + a);
+}
+
+int Chapter_02::mult_acc2(int r, int n, int a)
+{
+	if (this->odd(n))
+	{
+		r = r + a;
+		if (n == 1) return r;
+	}
+
+	return this->mult_acc0(r, half(n), a + a);
+}
+
+int Chapter_02::mult_acc3(int r, int n, int a)
+{
+	if (this->odd(n))
+	{
+		r = r + a;
+		if (n == 1) return r;
+	}
+	n = half(n);
+	a = a + a;
+
+	return this->mult_acc0(r, n, a);
+}
+
+int Chapter_02::mult_acc4(int r, int n, int a)
+{
+	while (true)
+	{
+		if (this->odd(n))
+		{
+			r = r + a;
+			if (n == 1) return r;
+		}
+
+		n = half(n);
+		a = a + a;
+	}
+}
+
 void Chapter_02::exercise_2_1(int n, int a)
 {
 	if (n <= 1)
